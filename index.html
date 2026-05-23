@@ -1,1136 +1,876 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
-    <meta name="theme-color" content="#1a1a2e" />
-    
-    <title>Checkers — Betting Game</title>
-    <meta name="description" content="Checkers - Betting game with TZS balance" />
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Hack777 | Professional Digital Intelligence Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
-        
+
         body {
+            background: linear-gradient(135deg, #0a0e1a 0%, #06090f 100%);
+            font-family: 'Inter', sans-serif;
+            color: #eef5ff;
             min-height: 100vh;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 2rem;
         }
-        
-        .app {
-            max-width: 100%;
+
+        .main-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 8px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
-        
-        .sidebar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(18, 18, 42, 0.98);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-radius: 28px 28px 0 0;
-            transform: translateY(85%);
-            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            z-index: 1000;
-            max-height: 85vh;
-            overflow-y: auto;
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
         }
-        
-        .sidebar.open { transform: translateY(0); }
-        .sidebar-handle {
-            width: 50px;
-            height: 5px;
-            background: rgba(255,255,255,0.4);
-            border-radius: 10px;
-            margin: 14px auto;
-            cursor: pointer;
-        }
-        
-        .sidebar-brand {
-            padding: 12px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-        
-        .brand-label { font-size: 10px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
-        .brand-name {
-            font-size: 26px;
+
+        .logo {
+            font-size: 3.5rem;
             font-weight: 800;
-            text-decoration: none;
-            background: linear-gradient(135deg, #e07b39, #ffa35c);
-            -webkit-background-clip: text;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #ffffff, #3bc9db, #ff6b6d);
             background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(59, 201, 219, 0.3);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(59, 201, 219, 0.1);
+            border: 1px solid rgba(59, 201, 219, 0.3);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        /* Service Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: rgba(15, 25, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(59, 201, 219, 0.2);
+            padding: 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(59, 201, 219, 0.5);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+        }
+
+        .service-card.locked {
+            opacity: 0.85;
+            position: relative;
+        }
+
+        .lock-overlay {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: #ff6b6d;
+            opacity: 0.9;
+        }
+
+        .service-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, #7bc5ff);
+            background-clip: text;
+            -webkit-background-clip: text;
             color: transparent;
         }
-        
-        .tabs {
-            display: flex;
-            gap: 4px;
-            padding: 10px 16px;
+
+        .service-desc {
+            font-size: 0.85rem;
+            color: #9aaec0;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
         }
-        
-        .tab {
-            flex: 1;
-            padding: 10px;
-            background: transparent;
+
+        .input-field {
+            width: 100%;
+            background: #0a121c;
+            border: 1px solid #2a4a55;
+            padding: 0.7rem 1rem;
+            border-radius: 0.8rem;
+            color: #eef5ff;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #3bc9db;
+            box-shadow: 0 0 0 2px rgba(59, 201, 219, 0.2);
+        }
+
+        .action-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1f4a5a, #0e2a35);
             border: none;
-            color: rgba(255,255,255,0.5);
-            font-size: 13px;
+            padding: 0.7rem;
+            border-radius: 0.8rem;
+            color: #eef5ff;
             font-weight: 600;
             cursor: pointer;
-            border-radius: 30px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
         }
-        
-        .tab.active { background: rgba(224, 123, 57, 0.2); color: #e07b39; }
-        .tab-content { padding: 16px; display: none; }
-        .tab-content.active { display: block; }
-        
-        .tip-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+
+        .action-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #2a6070, #163d4a);
+            transform: scale(0.98);
         }
-        
-        .tip-list li {
-            font-size: 13px;
-            line-height: 1.4;
-            color: rgba(255,255,255,0.7);
-            padding: 10px;
-            background: rgba(255,255,255,0.04);
-            border-left: 3px solid #e07b39;
-            border-radius: 0 8px 8px 0;
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
-        
-        kbd {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 6px;
-            padding: 2px 8px;
-            font-size: 11px;
+
+        .result-area {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background: #061016;
+            border-radius: 0.8rem;
+            font-size: 0.75rem;
+            font-family: 'Courier New', monospace;
+            border-left: 3px solid #3bc9db;
+            word-break: break-word;
+            color: #b8e2f2;
         }
-        
-        .game {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 8px 90px 8px;
-            min-height: 100vh;
+
+        /* Payment Section */
+        .payment-section {
+            margin-top: 2rem;
+            border-top: 1px solid rgba(59, 201, 219, 0.2);
+            padding-top: 2rem;
         }
-        
-        #menu {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
+
+        .payment-container {
+            background: linear-gradient(135deg, rgba(10, 20, 35, 0.95), rgba(5, 12, 20, 0.95));
+            border-radius: 1.5rem;
+            border: 1px solid rgba(59, 201, 219, 0.3);
+            overflow: hidden;
         }
-        
-        .menu-header { text-align: center; margin-bottom: 28px; }
-        .menu-title {
-            font-size: clamp(42px, 12vw, 62px);
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, #e07b39);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 6px;
-        }
-        .menu-subtitle { font-size: 12px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 2px; }
-        
-        .mode-cards {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        
-        .mode-card {
-            flex: 1;
-            padding: 18px 12px;
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            cursor: pointer;
-            text-align: center;
-        }
-        
-        .mode-card.active { border-color: #e07b39; background: rgba(224, 123, 57, 0.15); }
-        .mode-icon { font-size: 42px; display: block; margin-bottom: 6px; }
-        .mode-name { font-size: 16px; font-weight: 700; color: white; }
-        .mode-desc { font-size: 10px; color: rgba(255,255,255,0.4); }
-        
-        .difficulty-select { margin-bottom: 24px; }
-        .difficulty-select label { font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.5); display: block; margin-bottom: 8px; }
-        .difficulty-options { display: flex; gap: 8px; }
-        
-        .diff-btn {
-            flex: 1;
-            padding: 10px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: rgba(255,255,255,0.6);
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .diff-btn.active { background: #e07b39; color: white; }
-        
-        .stake-section { margin-bottom: 24px; }
-        .stake-section label { font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.5); display: block; margin-bottom: 8px; }
-        .stake-input input {
-            width: 100%;
-            padding: 14px;
-            background: rgba(255,255,255,0.08);
-            border: 2px solid rgba(224, 123, 57, 0.3);
-            border-radius: 16px;
-            color: white;
-            font-size: 18px;
-            font-weight: 700;
-            text-align: center;
-        }
-        .stake-input input:focus { outline: none; border-color: #e07b39; }
-        
-        #start-btn {
-            width: 100%;
-            padding: 16px;
-            font-size: 18px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #e07b39, #c0522a);
-            color: white;
-            border: none;
-            border-radius: 44px;
-            cursor: pointer;
-        }
-        
-        #game-container { width: 100%; }
-        
-        .top-bar {
+
+        .payment-header {
+            background: rgba(59, 201, 219, 0.08);
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid rgba(59, 201, 219, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .payment-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .access-status {
+            display: flex;
+            align-items: center;
             gap: 12px;
-            margin-bottom: 16px;
+            background: #0a121c;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+        }
+
+        .access-status.locked {
+            border-left: 3px solid #ff6b6d;
+        }
+
+        .access-status.unlocked {
+            border-left: 3px solid #2effb0;
+        }
+
+        .payment-body {
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .pricing-plans {
+            display: flex;
+            gap: 1.5rem;
+            flex: 2;
             flex-wrap: wrap;
         }
-        
-        .score-row { display: flex; gap: 12px; flex: 2; }
-        .score-card {
+
+        .plan-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.5rem;
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 40px;
+            min-width: 180px;
+            border: 1px solid rgba(255, 140, 66, 0.3);
+            transition: all 0.2s;
         }
-        .score-card-white { border-bottom: 3px solid #ffffff; }
-        .score-card-black { border-bottom: 3px solid #444444; }
-        .score-piece { font-size: 20px; }
-        .score-name { font-size: 12px; font-weight: 600; color: white; }
-        .score-value { font-size: 20px; font-weight: 800; color: #e07b39; }
-        
-        .balance-card {
-            background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
-            border-radius: 50px;
-            padding: 8px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid rgba(224, 123, 57, 0.4);
+
+        .plan-card:hover {
+            border-color: #ff8c42;
+            background: rgba(255, 140, 66, 0.05);
         }
-        .balance-label { font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
-        .balance-amount { font-size: 22px; font-weight: 800; color: #ffd966; }
-        .balance-currency { font-size: 11px; color: rgba(255,255,255,0.5); margin-left: 2px; }
-        
-        .stake-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0,0,0,0.4);
-            padding: 4px 12px;
-            border-radius: 40px;
-        }
-        .stake-info-label { font-size: 10px; color: rgba(255,255,255,0.5); }
-        .stake-info-amount { font-size: 16px; font-weight: 700; color: #e07b39; }
-        
-        .board-area {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: auto;
-        }
-        
-        #board {
-            border-collapse: collapse;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 0 auto;
-        }
-        
-        #board td {
-            width: min(13vw, 70px);
-            height: min(13vw, 70px);
-            min-width: 48px;
-            min-height: 48px;
-            padding: 0;
-            text-align: center;
-            vertical-align: middle;
-        }
-        
-        tr:nth-child(odd) td:nth-child(even),
-        tr:nth-child(even) td:nth-child(odd) {
-            background: #d4b482;
-        }
-        tr:nth-child(odd) td:nth-child(odd),
-        tr:nth-child(even) td:nth-child(even) {
-            background: #5a3a2a;
-        }
-        
-        #peca, #dama {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 80%;
-            height: 80%;
-            margin: 10%;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.1s ease;
-        }
-        
-        #peca.white, #dama.white {
-            background: radial-gradient(circle at 35% 35%, #ffffff, #e0e0e0);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        
-        #peca.black, #dama.black {
-            background: radial-gradient(circle at 35% 35%, #444444, #1a1a1a);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        #dama:after { content: "👑"; font-size: min(7vw, 34px); line-height: 1; }
-        td.verde { background: rgba(76, 175, 80, 0.85) !important; box-shadow: inset 0 0 0 4px #4caf50; }
-        
-        .turn-indicator { margin-top: 16px; margin-bottom: 8px; display: flex; justify-content: center; }
-        .turn-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
-            padding: 10px 24px;
-            border-radius: 60px;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-        .turn-label { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.6); font-weight: 600; }
-        .turn-piece {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        .turn-piece.white-turn {
-            background: radial-gradient(circle at 35% 35%, #ffffff, #e0e0e0);
-            box-shadow: 0 0 0 2px #e07b39, 0 0 0 4px rgba(224,123,57,0.3);
-        }
-        .turn-piece.black-turn {
-            background: radial-gradient(circle at 35% 35%, #444444, #1a1a1a);
-            box-shadow: 0 0 0 2px #e07b39, 0 0 0 4px rgba(224,123,57,0.3);
-        }
-        .turn-name { font-size: 16px; font-weight: 700; color: white; }
-        
-        #win-banner {
-            text-align: center;
-            padding: 10px 16px;
-            background: rgba(224, 123, 57, 0.2);
-            border-radius: 40px;
-            margin-bottom: 12px;
-            width: 100%;
-        }
-        #win-text { color: #e07b39; font-weight: 700; font-size: 16px; }
-        
-        .game-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 400px;
-        }
-        .game-actions button {
-            flex: 1;
-            padding: 12px;
-            font-size: 14px;
+
+        .plan-name {
+            font-size: 1.1rem;
             font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffbc6e;
+            margin: 0.5rem 0;
+        }
+
+        .plan-features {
+            font-size: 0.75rem;
+            color: #9aaec0;
+            margin: 0.8rem 0;
+            line-height: 1.6;
+        }
+
+        .airtel-pay-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff8c42, #e06e1a);
             border: none;
-            border-radius: 40px;
+            padding: 0.7rem;
+            border-radius: 2rem;
+            color: white;
+            font-weight: 700;
             cursor: pointer;
-        }
-        #back-btn { background: rgba(255,255,255,0.1); color: white; }
-        #generate { background: linear-gradient(135deg, #e07b39, #c0522a); color: white; }
-        
-        .resign-btn {
-            padding: 6px 14px;
-            font-size: 11px;
-            background: rgba(220, 53, 69, 0.2);
-            border: 1px solid rgba(220, 53, 69, 0.5);
-            border-radius: 30px;
-            color: #ff6b6b;
-            cursor: pointer;
-        }
-        .resign-buttons { display: flex; gap: 12px; justify-content: center; margin-top: 8px; }
-        
-        .hidden { display: none !important; }
-        
-        .sidebar-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 54px;
-            height: 54px;
-            background: #e07b39;
-            border-radius: 50%;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-            z-index: 1001;
-            font-size: 26px;
+            gap: 8px;
+        }
+
+        .airtel-pay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 140, 66, 0.3);
+        }
+
+        .verification-box {
+            flex: 1;
+            min-width: 220px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            border: 1px solid rgba(59, 201, 219, 0.3);
+        }
+
+        .verification-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #7bc5ff;
+        }
+
+        .verify-btn {
+            width: 100%;
+            background: #1f4a5a;
             border: none;
+            padding: 0.6rem;
+            border-radius: 2rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .verify-btn:hover {
+            background: #2a6070;
+        }
+
+        .payment-note {
+            font-size: 0.7rem;
+            color: #6a8e9e;
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(59, 201, 219, 0.1);
+        }
+
+        /* MODAL (Popup for Screenshot Upload) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0f1a24, #0a111a);
+            border-radius: 1.5rem;
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            border: 1px solid rgba(59, 201, 219, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-header {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffbc6e;
+        }
+
+        .modal-body {
+            margin: 1.5rem 0;
+        }
+
+        .upload-area {
+            border: 2px dashed rgba(59, 201, 219, 0.5);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .upload-area:hover {
+            border-color: #3bc9db;
+            background: rgba(59, 201, 219, 0.05);
+        }
+
+        .upload-area i {
+            font-size: 2.5rem;
+            color: #7bc5ff;
+            margin-bottom: 0.5rem;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .preview-img {
+            margin-top: 1rem;
+            max-width: 100%;
+            border-radius: 0.8rem;
+            display: none;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.7rem;
+            border-radius: 2rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn.confirm {
+            background: linear-gradient(135deg, #2a9d8f, #238b7a);
             color: white;
         }
-        
-        @media (min-width: 768px) {
-            .app { padding: 20px; }
-            .sidebar {
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: auto;
-                left: auto;
-                width: 300px;
-                height: 100vh;
-                transform: translateX(100%);
-                border-radius: 0;
-            }
-            .sidebar.open { transform: translateX(0); }
-            .sidebar-handle { display: none; }
-            .sidebar-toggle { position: fixed; top: 20px; right: 20px; bottom: auto; }
-            #board td { width: 70px; height: 70px; }
+
+        .modal-btn.cancel {
+            background: #3a2a2a;
+            color: #ffaaaa;
         }
-        
-        @media (min-width: 1024px) { #board td { width: 80px; height: 80px; } }
-        @media (max-width: 480px) { #board td { width: 11vw; height: 11vw; min-width: 42px; min-height: 42px; } }
-        @media (max-width: 380px) {
-            #board td { width: 10vw; height: 10vw; min-width: 38px; min-height: 38px; }
-            .top-bar { flex-direction: column; }
-            .balance-card { width: 100%; justify-content: space-between; }
+
+        .footer {
+            text-align: center;
+            font-size: 0.7rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            color: #6a8e9e;
         }
     </style>
 </head>
 <body>
-    <div class="app">
-        <div class="game">
-            <div id="menu">
-                <div class="menu-header">
-                    <h1 class="menu-title">CHECKERS</h1>
-                    <p class="menu-subtitle">Bet & Win</p>
+<div class="main-container">
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">HACK777</div>
+        <div class="badge">
+            <i class="fas fa-shield-alt"></i>
+            <span>Professional Digital Intelligence Suite</span>
+            <i class="fas fa-lock"></i>
+        </div>
+    </div>
+
+    <!-- 4 Services Grid -->
+    <div class="services-grid">
+        <!-- WhatsApp Hack -->
+        <div class="service-card locked" id="cardWhatsapp">
+            <div class="lock-overlay"><i class="fas fa-lock"></i></div>
+            <div class="service-icon"><i class="fab fa-whatsapp"></i></div>
+            <div class="service-title">WhatsApp Exploit</div>
+            <div class="service-desc">Advanced decryption & message interception. Extract deleted messages, media, and call logs.</div>
+            <input type="text" class="input-field" id="waTarget" placeholder="Target phone number / ID">
+            <button class="action-btn" id="waHackBtn" disabled>🔒 HACK WHATSAPP</button>
+            <div class="result-area" id="waResult">🔒 Access locked. Complete payment to unlock.</div>
+        </div>
+
+        <!-- SMS Hack -->
+        <div class="service-card locked" id="cardSms">
+            <div class="lock-overlay"><i class="fas fa-lock"></i></div>
+            <div class="service-icon"><i class="fas fa-envelope"></i></div>
+            <div class="service-title">SMS Interception</div>
+            <div class="service-desc">Real-time SMS capture, OTP extraction, and message forwarding system.</div>
+            <input type="text" class="input-field" id="smsTarget" placeholder="Target mobile number">
+            <button class="action-btn" id="smsHackBtn" disabled>🔒 CAPTURE SMS</button>
+            <div class="result-area" id="smsResult">🔒 Access locked. Complete payment to unlock.</div>
+        </div>
+
+        <!-- Social Media Hack -->
+        <div class="service-card locked" id="cardSocial">
+            <div class="lock-overlay"><i class="fas fa-lock"></i></div>
+            <div class="service-icon"><i class="fab fa-instagram"></i></div>
+            <div class="service-title">Social Takeover</div>
+            <div class="service-desc">Full account access for Instagram, Facebook, TikTok. Session hijacking & credential extraction.</div>
+            <input type="text" class="input-field" id="socialTarget" placeholder="Instagram/FB/TikTok username">
+            <button class="action-btn" id="socialHackBtn" disabled>🔒 CRACK ACCOUNT</button>
+            <div class="result-area" id="socialResult">🔒 Access locked. Complete payment to unlock.</div>
+        </div>
+
+        <!-- Social Boost -->
+        <div class="service-card locked" id="cardBoost">
+            <div class="lock-overlay"><i class="fas fa-lock"></i></div>
+            <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="service-title">Viral Booster</div>
+            <div class="service-desc">Organic growth engine. Increase followers, likes, views across all platforms.</div>
+            <input type="text" class="input-field" id="boostTarget" placeholder="Profile URL / username">
+            <button class="action-btn" id="boostBtn" disabled>🔒 START BOOST</button>
+            <div class="result-area" id="boostResult">🔒 Access locked. Complete payment to unlock.</div>
+        </div>
+    </div>
+
+    <!-- Payment Section (LAST) -->
+    <div class="payment-section">
+        <div class="payment-container">
+            <div class="payment-header">
+                <div class="payment-title">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payment & Access Management</span>
                 </div>
-                
-                <div class="mode-cards">
-                    <button class="mode-card active" data-mode="multiplayer">
-                        <span class="mode-icon">👥</span>
-                        <span class="mode-name">Two Players</span>
-                        <span class="mode-desc">Local multiplayer</span>
-                    </button>
-                    <button class="mode-card" data-mode="machine">
-                        <span class="mode-icon">🤖</span>
-                        <span class="mode-name">VS Machine</span>
-                        <span class="mode-desc">Play against AI</span>
-                    </button>
+                <div class="access-status locked" id="accessStatus">
+                    <i class="fas fa-lock"></i>
+                    <span id="accessText">ACCESS: LOCKED</span>
                 </div>
-                
-                <div class="difficulty-select hidden" id="difficulty-group">
-                    <label>🤖 AI Difficulty</label>
-                    <div class="difficulty-options">
-                        <button class="diff-btn" data-diff="easy">Easy</button>
-                        <button class="diff-btn active" data-diff="medium">Medium</button>
-                        <button class="diff-btn" data-diff="hard">Hard</button>
-                    </div>
-                </div>
-                
-                <div class="stake-section">
-                    <label>💰 Ingiza Kiasi cha Stake (TZS)</label>
-                    <div class="stake-input">
-                        <input type="number" id="stake-amount" placeholder="Ingiza kiasi" value="1000" min="100" step="100" />
-                    </div>
-                </div>
-                
-                <button id="start-btn">🎲 ANZA MCHEZO</button>
             </div>
-            
-            <div id="game-container" class="hidden">
-                <div class="board-wrapper">
-                    <div class="top-bar">
-                        <div class="score-row">
-                            <div class="score-card score-card-white">
-                                <span class="score-piece">⚪</span>
-                                <span class="score-name">White</span>
-                                <span class="score-value" id="score-white">0</span>
-                            </div>
-                            <div class="score-card score-card-black">
-                                <span class="score-piece">⚫</span>
-                                <span class="score-name">Black</span>
-                                <span class="score-value" id="score-black">0</span>
-                            </div>
+            <div class="payment-body">
+                <div class="pricing-plans">
+                    <div class="plan-card">
+                        <div class="plan-name">🟡 Limited Access</div>
+                        <div class="plan-price">TSh 10,000</div>
+                        <div class="plan-features">
+                            ✓ WhatsApp message hack<br>
+                            ✓ SMS interception<br>
+                            ✓ Social account basic exploit<br>
+                            ✓ Boost: +50 followers demo
                         </div>
-                        
-                        <div class="balance-card">
-                            <span class="balance-label">💰 SALIO LAKO</span>
-                            <span class="balance-amount" id="player-balance-display">50,000</span>
-                            <span class="balance-currency">TZS</span>
+                        <button class="airtel-pay-btn" id="payLimitedBtn">
+                            <i class="fas fa-mobile-alt"></i> PAY 10k VIA AIRTEL
+                        </button>
+                    </div>
+                    <div class="plan-card">
+                        <div class="plan-name">🔴 Full VIP Access</div>
+                        <div class="plan-price">TSh 20,000</div>
+                        <div class="plan-features">
+                            ✓ Unlimited WhatsApp history<br>
+                            ✓ Full SMS + OTP stream<br>
+                            ✓ Complete social takeover<br>
+                            ✓ Unlimited viral boost (10k+ followers)<br>
+                            ✓ Priority support
                         </div>
-                    </div>
-                    
-                    <div class="stake-info" style="margin-bottom: 8px; align-self: center;">
-                        <span class="stake-info-label">STAKE:</span>
-                        <span class="stake-info-amount" id="stake-amount-display">1,000</span>
-                        <span class="stake-info-label" style="margin-left: 8px;">| MSHINDI ANAUCHUKUA WOTE</span>
-                    </div>
-                    
-                    <div class="board-area">
-                        <div id="win-banner" class="hidden">
-                            <span id="win-text"></span>
-                        </div>
-                        <table id="board"></table>
-                    </div>
-                    
-                    <div class="turn-indicator">
-                        <div class="turn-box" id="turnBox">
-                            <span class="turn-label">ZAMU YAKO</span>
-                            <div class="turn-piece white-turn" id="turnPiece">⚪</div>
-                            <span class="turn-name" id="turnName">White</span>
-                        </div>
-                    </div>
-                    
-                    <div class="resign-buttons">
-                        <button class="resign-btn" id="resign-white">⚪ White - Kataa</button>
-                        <button class="resign-btn" id="resign-black">⚫ Black - Kataa</button>
+                        <button class="airtel-pay-btn" id="payFullBtn">
+                            <i class="fas fa-gem"></i> PAY 20k VIA AIRTEL
+                        </button>
                     </div>
                 </div>
-                
-                <div class="game-actions">
-                    <button id="back-btn">← Menu</button>
-                    <button id="generate">🔄 New Game</button>
+                <div class="verification-box">
+                    <div class="verification-title">
+                        <i class="fas fa-check-circle"></i> Verify Transaction
+                    </div>
+                    <button class="verify-btn" id="verifyLimitedBtn">
+                        <i class="fas fa-check"></i> Verify 10,000 TZS Payment
+                    </button>
+                    <button class="verify-btn" id="verifyFullBtn" style="background:#b96f2a;">
+                        <i class="fas fa-crown"></i> Verify 20,000 TZS Payment
+                    </button>
+                    <div style="font-size:0.7rem; margin-top: 12px; color:#6a8e9e;">
+                        <i class="fas fa-info-circle"></i> After sending via Airtel Money, click verify & upload screenshot
+                    </div>
                 </div>
+            </div>
+            <div class="payment-note">
+                <i class="fas fa-shield-alt"></i> Airtel Tanzania: Send exact amount to <strong style="color:#ffbc6e;">+255 581 700 060</strong> using *150*60#. 
+                Verification requires screenshot upload. Our team will confirm within minutes.
             </div>
         </div>
     </div>
-    
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-handle" id="sidebarHandle"></div>
-        <div class="sidebar-brand">
-            <span class="brand-label">made by</span>
-            <a class="brand-name" href="#" target="_blank">You</a>
+
+    <div class="footer">
+        <i class="fas fa-exclamation-triangle"></i> Authorized security testing environment. All operations are simulated for demonstration.
+    </div>
+</div>
+
+<!-- Modal Popup for Screenshot Upload -->
+<div id="screenshotModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <i class="fas fa-upload"></i>
+            <span>Upload Payment Screenshot</span>
         </div>
-        <div class="tabs">
-            <button class="tab active" data-tab="tips">💡 Tips</button>
-            <button class="tab" data-tab="rules">📜 Rules</button>
-            <button class="tab" data-tab="controls">🎮 Controls</button>
+        <div class="modal-body">
+            <p style="margin-bottom: 1rem; font-size: 0.85rem;">Please upload a screenshot of your Airtel Money transaction to <strong>+255 581 700 060</strong></p>
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to select screenshot</p>
+                <p style="font-size: 0.7rem; margin-top: 5px;">PNG, JPG up to 5MB</p>
+            </div>
+            <input type="file" id="fileInput" accept="image/png, image/jpeg, image/jpg">
+            <img id="previewImage" class="preview-img" alt="Preview">
         </div>
-        <div class="tab-content active" id="tips">
-            <ul class="tip-list">
-                <li>🎯 Tap a piece to select it</li>
-                <li>🟢 Green squares show where you can move</li>
-                <li>👑 Kings can move any distance diagonally</li>
-                <li>⚡ Capturing is mandatory when possible</li>
-                <li>💰 Mshindi anachukua stake yote!</li>
-            </ul>
-        </div>
-        <div class="tab-content" id="rules">
-            <ul class="tip-list">
-                <li>📌 Each player starts with 12 pieces on dark squares</li>
-                <li>📌 White moves first</li>
-                <li>📌 Pieces move diagonally forward one square</li>
-                <li>📌 Capture by jumping over an enemy piece</li>
-                <li>📌 Multiple captures in one turn are allowed</li>
-                <li>📌 Reach back row to become a <strong>King 👑</strong></li>
-                <li>📌 Kings can move any distance diagonally (flying kings)</li>
-                <li>📌 Capturing is mandatory!</li>
-            </ul>
-        </div>
-        <div class="tab-content" id="controls">
-            <ul class="tip-list">
-                <li>👆 <kbd>Tap</kbd> a piece to select it</li>
-                <li>🟢 Green squares = valid moves</li>
-                <li>✅ <kbd>Tap</kbd> green square to move there</li>
-                <li>🔁 Press <kbd>New Game</kbd> to play again</li>
-            </ul>
+        <div class="modal-buttons">
+            <button class="modal-btn cancel" id="modalCancelBtn">Cancel</button>
+            <button class="modal-btn confirm" id="modalConfirmBtn">Confirm & Submit</button>
         </div>
     </div>
-    
-    <button class="sidebar-toggle" id="sidebarToggle">📖</button>
-    
-    <script>
-        (function() {
-            // STANDARD CHECKERS - 12 pieces per player
-            const INITIAL_PIECES = [
-                { posY: 0, posX: 1, color: 'black' }, { posY: 0, posX: 3, color: 'black' },
-                { posY: 0, posX: 5, color: 'black' }, { posY: 0, posX: 7, color: 'black' },
-                { posY: 1, posX: 0, color: 'black' }, { posY: 1, posX: 2, color: 'black' },
-                { posY: 1, posX: 4, color: 'black' }, { posY: 1, posX: 6, color: 'black' },
-                { posY: 2, posX: 1, color: 'black' }, { posY: 2, posX: 3, color: 'black' },
-                { posY: 2, posX: 5, color: 'black' }, { posY: 2, posX: 7, color: 'black' },
-                { posY: 5, posX: 0, color: 'white' }, { posY: 5, posX: 2, color: 'white' },
-                { posY: 5, posX: 4, color: 'white' }, { posY: 5, posX: 6, color: 'white' },
-                { posY: 6, posX: 1, color: 'white' }, { posY: 6, posX: 3, color: 'white' },
-                { posY: 6, posX: 5, color: 'white' }, { posY: 6, posX: 7, color: 'white' },
-                { posY: 7, posX: 0, color: 'white' }, { posY: 7, posX: 2, color: 'white' },
-                { posY: 7, posX: 4, color: 'white' }, { posY: 7, posX: 6, color: 'white' }
-            ];
-            
-            // DOM elements
-            const boardEl = document.getElementById('board');
-            const menuEl = document.getElementById('menu');
-            const gameContainer = document.getElementById('game-container');
-            const startBtn = document.getElementById('start-btn');
-            const backBtn = document.getElementById('back-btn');
-            const generateBtn = document.getElementById('generate');
-            const resignWhite = document.getElementById('resign-white');
-            const resignBlack = document.getElementById('resign-black');
-            const scoreWhite = document.getElementById('score-white');
-            const scoreBlack = document.getElementById('score-black');
-            const winBanner = document.getElementById('win-banner');
-            const winText = document.getElementById('win-text');
-            const playerBalanceDisplay = document.getElementById('player-balance-display');
-            const stakeAmountDisplay = document.getElementById('stake-amount-display');
-            const turnPiece = document.getElementById('turnPiece');
-            const turnName = document.getElementById('turnName');
-            
-            // State
-            let selectedPiece = null;
-            let highlightedMoves = [];
-            let whiteTurn = true;
-            let gameActive = true;
-            let currentMode = 'multiplayer';
-            let currentDifficulty = 'medium';
-            let currentConfig = null;
-            let playerBalance = 50000;
-            let currentStake = 1000;
-            
-            const STORAGE_KEY = 'checkers_config';
-            
-            function formatTZS(amount) {
-                return amount.toLocaleString('en-US');
+</div>
+
+<script>
+    // Access levels
+    let currentAccess = sessionStorage.getItem("hack777_pro_access") || "none";
+    let pendingVerificationType = null; // 'limited' or 'full'
+    let uploadedFile = null;
+
+    // DOM Elements
+    const accessStatusDiv = document.getElementById("accessStatus");
+    const accessTextSpan = document.getElementById("accessText");
+    const cards = {
+        whatsapp: document.getElementById("cardWhatsapp"),
+        sms: document.getElementById("cardSms"),
+        social: document.getElementById("cardSocial"),
+        boost: document.getElementById("cardBoost")
+    };
+    const buttons = {
+        wa: document.getElementById("waHackBtn"),
+        sms: document.getElementById("smsHackBtn"),
+        social: document.getElementById("socialHackBtn"),
+        boost: document.getElementById("boostBtn")
+    };
+
+    const modal = document.getElementById("screenshotModal");
+    const fileInput = document.getElementById("fileInput");
+    const uploadArea = document.getElementById("uploadArea");
+    const previewImg = document.getElementById("previewImage");
+
+    // Update UI based on access
+    function updateUI() {
+        if (currentAccess === "full") {
+            accessTextSpan.innerText = "FULL VIP ACCESS ACTIVE";
+            accessStatusDiv.classList.remove("locked");
+            accessStatusDiv.classList.add("unlocked");
+            accessStatusDiv.style.borderLeftColor = "#2effb0";
+            for (let key in cards) {
+                cards[key].classList.remove("locked");
+                const overlay = cards[key].querySelector(".lock-overlay");
+                if (overlay) overlay.style.display = "none";
+                buttons[key].disabled = false;
+                buttons[key].innerHTML = buttons[key].innerHTML.replace("🔒", "⚡");
             }
-            
-            function updateBalanceDisplay() {
-                playerBalanceDisplay.textContent = formatTZS(playerBalance);
+            setResultMessagesReady();
+        } 
+        else if (currentAccess === "limited") {
+            accessTextSpan.innerText = "LIMITED ACCESS ACTIVE (10k TZS)";
+            accessStatusDiv.classList.remove("locked");
+            accessStatusDiv.classList.add("unlocked");
+            accessStatusDiv.style.borderLeftColor = "#ffb347";
+            for (let key in cards) {
+                cards[key].classList.remove("locked");
+                const overlay = cards[key].querySelector(".lock-overlay");
+                if (overlay) overlay.style.display = "none";
+                buttons[key].disabled = false;
+                buttons[key].innerHTML = buttons[key].innerHTML.replace("🔒", "⚡");
             }
-            
-            function getSquare(x, y) {
-                return document.querySelector(`td[pos="${x},${y}"]`);
+            setResultMessagesReadyLimited();
+        }
+        else {
+            accessTextSpan.innerText = "ACCESS: LOCKED - PAY REQUIRED";
+            accessStatusDiv.classList.add("locked");
+            accessStatusDiv.classList.remove("unlocked");
+            accessStatusDiv.style.borderLeftColor = "#ff6b6d";
+            for (let key in cards) {
+                cards[key].classList.add("locked");
+                const overlay = cards[key].querySelector(".lock-overlay");
+                if (overlay) overlay.style.display = "flex";
+                buttons[key].disabled = true;
+                buttons[key].innerHTML = buttons[key].innerHTML.replace("⚡", "🔒");
             }
-            
-            function countPieces(color) {
-                return document.querySelectorAll(`#peca.${color}, #dama.${color}`).length;
+            resetResultsLocked();
+        }
+    }
+
+    function resetResultsLocked() {
+        document.getElementById("waResult").innerHTML = "🔒 Access locked. Complete payment to unlock.";
+        document.getElementById("smsResult").innerHTML = "🔒 Access locked. Complete payment to unlock.";
+        document.getElementById("socialResult").innerHTML = "🔒 Access locked. Complete payment to unlock.";
+        document.getElementById("boostResult").innerHTML = "🔒 Access locked. Complete payment to unlock.";
+    }
+
+    function setResultMessagesReady() {
+        if (currentAccess === "full") {
+            if (document.getElementById("waResult").innerHTML.includes("locked")) document.getElementById("waResult").innerHTML = "✅ Ready. Enter target to begin exploitation.";
+            if (document.getElementById("smsResult").innerHTML.includes("locked")) document.getElementById("smsResult").innerHTML = "✅ Ready. SMS capture suite active.";
+            if (document.getElementById("socialResult").innerHTML.includes("locked")) document.getElementById("socialResult").innerHTML = "✅ Ready. Enter username to initiate takeover.";
+            if (document.getElementById("boostResult").innerHTML.includes("locked")) document.getElementById("boostResult").innerHTML = "✅ FULL BOOST: Unlimited viral growth ready.";
+        }
+    }
+
+    function setResultMessagesReadyLimited() {
+        if (document.getElementById("waResult").innerHTML.includes("locked")) document.getElementById("waResult").innerHTML = "✅ Limited access ready. Demo hack available.";
+        if (document.getElementById("smsResult").innerHTML.includes("locked")) document.getElementById("smsResult").innerHTML = "✅ Limited SMS capture ready.";
+        if (document.getElementById("socialResult").innerHTML.includes("locked")) document.getElementById("socialResult").innerHTML = "✅ Limited social hack ready.";
+        if (document.getElementById("boostResult").innerHTML.includes("locked")) document.getElementById("boostResult").innerHTML = "⚠️ Limited boost: +50 followers demo. Upgrade to Full (20k) for unlimited.";
+    }
+
+    function showToast(message, isError = false) {
+        let toast = document.createElement("div");
+        toast.style.position = "fixed";
+        toast.style.bottom = "30px";
+        toast.style.left = "50%";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.backgroundColor = isError ? "#4a1a1a" : "#0e2a2f";
+        toast.style.border = `1px solid ${isError ? "#ff6b6d" : "#ffaa55"}`;
+        toast.style.padding = "12px 28px";
+        toast.style.borderRadius = "50px";
+        toast.style.color = "#fff";
+        toast.style.fontWeight = "600";
+        toast.style.fontSize = "0.85rem";
+        toast.style.zIndex = "10001";
+        toast.style.backdropFilter = "blur(10px)";
+        toast.innerHTML = message;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            setTimeout(() => toast.remove(), 500);
+        }, 3500);
+    }
+
+    // Airtel USSD trigger
+    function dialAirtel() {
+        const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile) {
+            window.location.href = "tel:*150*60%23";
+            showToast("📞 USSD opened. Send money to +255581700060");
+        } else {
+            alert("Airtel Money: Dial *150*60# from your Airtel line → Select 'Send Money' → Enter +255581700060 → Enter amount (10000 or 20000) → Confirm PIN");
+            showToast("📱 On mobile: Dial *150*60# → Send Money → +255581700060", false);
+        }
+    }
+
+    // Open modal for verification with specific type
+    function openVerificationModal(type) {
+        if (currentAccess === "full" && type === "full") {
+            showToast("Full VIP access already active!", false);
+            return;
+        }
+        if (currentAccess === "limited" && type === "limited") {
+            showToast("Limited access already active!", false);
+            return;
+        }
+        if (currentAccess === "full" && type === "limited") {
+            showToast("You already have Full VIP access (higher tier).", false);
+            return;
+        }
+        pendingVerificationType = type;
+        uploadedFile = null;
+        fileInput.value = "";
+        previewImg.style.display = "none";
+        previewImg.src = "";
+        modal.style.display = "flex";
+    }
+
+    // Handle file upload
+    uploadArea.addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", function(e) {
+        const file = e.target.files[0];
+        if (file && (file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/jpg")) {
+            uploadedFile = file;
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                previewImg.src = event.target.result;
+                previewImg.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        } else {
+            showToast("Please select a valid PNG or JPG image", true);
+            uploadedFile = null;
+        }
+    });
+
+    // Confirm submission
+    function confirmSubmission() {
+        if (!uploadedFile) {
+            showToast("Please upload a screenshot of your payment first", true);
+            return;
+        }
+        // Simulate admin verification
+        showToast("📤 Screenshot submitted! Verifying payment...", false);
+        modal.style.display = "none";
+        
+        // Simulate delay then grant access
+        setTimeout(() => {
+            if (pendingVerificationType === "limited") {
+                sessionStorage.setItem("hack777_pro_access", "limited");
+                currentAccess = "limited";
+                updateUI();
+                showToast("✅ LIMITED ACCESS ACTIVATED! Screenshot verified. WhatsApp/SMS/Social hack unlocked.", false);
+            } else if (pendingVerificationType === "full") {
+                sessionStorage.setItem("hack777_pro_access", "full");
+                currentAccess = "full";
+                updateUI();
+                showToast("💎 FULL VIP ACCESS ACTIVATED! Screenshot verified. All tools + unlimited boost unlocked.", false);
             }
-            
-            function updateTurnIndicator() {
-                if (whiteTurn) {
-                    turnPiece.className = 'turn-piece white-turn';
-                    turnPiece.textContent = '⚪';
-                    turnName.textContent = 'White';
-                } else {
-                    turnPiece.className = 'turn-piece black-turn';
-                    turnPiece.textContent = '⚫';
-                    turnName.textContent = 'Black';
-                }
-            }
-            
-            // Get moves with FLYING KINGS and mandatory captures
-            function getMovesForPiece(square, isWhitePiece, isQueen, eatenChain = [], isChained = false) {
-                const moves = [];
-                const posAttr = square.getAttribute('pos');
-                if (!posAttr) return moves;
-                
-                const [px, py] = posAttr.split(',').map(Number);
-                const oppColor = isWhitePiece ? 'black' : 'white';
-                
-                // Forward directions only for regular pieces
-                const fwdDirections = isWhitePiece ? [[-1,-1],[1,-1]] : [[-1,1],[1,1]];
-                const allDirections = [[-1,-1],[1,-1],[-1,1],[1,1]];
-                const dirs = isQueen ? allDirections : fwdDirections;
-                
-                for (const [dx, dy] of dirs) {
-                    if (isQueen) {
-                        // FLYING KING - slide any distance
-                        let curX = px, curY = py;
-                        let enemyPos = null;
-                        
-                        while (true) {
-                            curX += dx;
-                            curY += dy;
-                            if (curX < 0 || curX >= 8 || curY < 0 || curY >= 8) break;
-                            
-                            const targetSq = getSquare(curX, curY);
-                            if (!targetSq) break;
-                            
-                            const piece = targetSq.firstChild;
-                            
-                            if (!piece) {
-                                if (enemyPos === null && !isChained) {
-                                    moves.push({ toSquare: targetSq, eaten: [] });
-                                } else if (enemyPos !== null) {
-                                    const newEaten = [...eatenChain, enemyPos];
-                                    moves.push({ toSquare: targetSq, eaten: newEaten });
-                                    const further = getMovesForPiece(targetSq, isWhitePiece, true, newEaten, true);
-                                    moves.push(...further);
-                                }
-                                if (enemyPos !== null) break;
-                            } else if (piece.classList.contains(oppColor)) {
-                                if (enemyPos !== null) break;
-                                enemyPos = targetSq;
-                            } else {
-                                break;
-                            }
-                        }
-                    } else {
-                        // Regular piece - single step
-                        const nx = px + dx;
-                        const ny = py + dy;
-                        if (nx < 0 || nx >= 8 || ny < 0 || ny >= 8) continue;
-                        
-                        const targetSq = getSquare(nx, ny);
-                        if (!targetSq) continue;
-                        const piece = targetSq.firstChild;
-                        
-                        // Simple move (only if not in capture chain)
-                        if (!piece && !isChained) {
-                            moves.push({ toSquare: targetSq, eaten: [] });
-                        }
-                        
-                        // Capture move (jump over)
-                        const jx = nx + dx;
-                        const jy = ny + dy;
-                        if (piece && piece.classList.contains(oppColor) && jx >= 0 && jx < 8 && jy >= 0 && jy < 8) {
-                            const jumpSq = getSquare(jx, jy);
-                            if (jumpSq && !jumpSq.firstChild && !eatenChain.includes(targetSq)) {
-                                const newEaten = [...eatenChain, targetSq];
-                                moves.push({ toSquare: jumpSq, eaten: newEaten });
-                                const further = getMovesForPiece(jumpSq, isWhitePiece, false, newEaten, true);
-                                moves.push(...further);
-                            }
-                        }
-                    }
-                }
-                
-                return moves;
-            }
-            
-            function executeMove(pieceEl, move) {
-                const srcSquare = pieceEl.parentNode;
-                
-                // Remove captured pieces
-                for (const eaten of move.eaten) {
-                    if (eaten && eaten.firstChild) {
-                        eaten.removeChild(eaten.firstChild);
-                    }
-                }
-                
-                // Move piece
-                srcSquare.removeChild(pieceEl);
-                move.toSquare.appendChild(pieceEl);
-                
-                // Promote to king if reached back row
-                const [toX, toY] = move.toSquare.getAttribute('pos').split(',').map(Number);
-                const isWhite = pieceEl.classList.contains('white');
-                if ((isWhite && toY === 0) || (!isWhite && toY === 7)) {
-                    if (pieceEl.id !== 'dama') {
-                        pieceEl.id = 'dama';
-                    }
-                }
-                
-                clearHighlights();
-                selectedPiece = null;
-                
-                if (checkGameOver()) return;
-                
-                whiteTurn = !whiteTurn;
-                updateTurnIndicator();
-                
-                if (checkGameOver()) return;
-                
-                // AI move
-                if (currentMode === 'machine' && !whiteTurn && gameActive) {
-                    setTimeout(() => makeAIMove(), 300);
-                }
-            }
-            
-            function hasAnyMoves(color) {
-                const pieces = document.querySelectorAll(`#peca.${color}, #dama.${color}`);
-                for (const piece of pieces) {
-                    const moves = getMovesForPiece(piece.parentNode, color === 'white', piece.id === 'dama');
-                    if (moves.length > 0) return true;
-                }
-                return false;
-            }
-            
-            function checkGameOver() {
-                const whiteCount = countPieces('white');
-                const blackCount = countPieces('black');
-                
-                if (whiteCount === 0) { gameOver('black'); return true; }
-                if (blackCount === 0) { gameOver('white'); return true; }
-                
-                if (!hasAnyMoves(whiteTurn ? 'white' : 'black')) {
-                    const whitePieces = countPieces('white');
-                    const blackPieces = countPieces('black');
-                    const winner = whitePieces >= blackPieces ? 'white' : 'black';
-                    gameOver(winner);
-                    return true;
-                }
-                return false;
-            }
-            
-            function gameOver(winnerColor) {
-                gameActive = false;
-                
-                if (currentConfig) {
-                    currentConfig.scores[winnerColor]++;
-                    scoreWhite.textContent = currentConfig.scores.white;
-                    scoreBlack.textContent = currentConfig.scores.black;
-                }
-                
-                if (winnerColor === 'white') {
-                    playerBalance += currentStake;
-                    winText.textContent = `White wins! 🎉 +${formatTZS(currentStake)} TZS!`;
-                } else {
-                    playerBalance -= currentStake;
-                    winText.textContent = `Black wins! 😞 -${formatTZS(currentStake)} TZS`;
-                }
-                
-                updateBalanceDisplay();
-                winBanner.classList.remove('hidden');
-            }
-            
-            function clearHighlights() {
-                for (const move of highlightedMoves) {
-                    if (move.toSquare) move.toSquare.classList.remove('verde');
-                }
-                highlightedMoves = [];
-            }
-            
-            // AI with flying kings
-            function getLogicalBoard() {
-                const board = Array(8).fill().map(() => Array(8).fill(null));
-                document.querySelectorAll('#peca, #dama').forEach(p => {
-                    const sq = p.parentNode;
-                    const pos = sq.getAttribute('pos');
-                    if (pos) {
-                        const [x, y] = pos.split(',').map(Number);
-                        board[y][x] = { color: p.classList.contains('white') ? 'white' : 'black', isQueen: p.id === 'dama' };
-                    }
-                });
-                return board;
-            }
-            
-            function getAllMovesAI(board, color) {
-                const moves = [];
-                const oppColor = color === 'white' ? 'black' : 'white';
-                const fwdDirs = color === 'white' ? [[-1,-1],[1,-1]] : [[-1,1],[1,1]];
-                const allDirs = [[-1,-1],[1,-1],[-1,1],[1,1]];
-                
-                for (let y = 0; y < 8; y++) {
-                    for (let x = 0; x < 8; x++) {
-                        const piece = board[y][x];
-                        if (piece && piece.color === color) {
-                            const dirs = piece.isQueen ? allDirs : fwdDirs;
-                            
-                            for (const [dx, dy] of dirs) {
-                                if (piece.isQueen) {
-                                    // Flying king
-                                    let cx = x, cy = y;
-                                    let enemy = null;
-                                    
-                                    while (true) {
-                                        cx += dx; cy += dy;
-                                        if (cx < 0 || cx >= 8 || cy < 0 || cy >= 8) break;
-                                        
-                                        if (!board[cy][cx]) {
-                                            if (!enemy) {
-                                                moves.push({ fromX: x, fromY: y, toX: cx, toY: cy, eaten: [] });
-                                            } else {
-                                                moves.push({ fromX: x, fromY: y, toX: cx, toY: cy, eaten: [enemy] });
-                                            }
-                                            if (enemy) break;
-                                        } else if (board[cy][cx].color === oppColor) {
-                                            if (enemy) break;
-                                            enemy = { x: cx, y: cy };
-                                        } else {
-                                            break;
-                                        }
-                                    }
-                                } else {
-                                    // Regular piece
-                                    const nx = x + dx, ny = y + dy;
-                                    if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8 && !board[ny][nx]) {
-                                        moves.push({ fromX: x, fromY: y, toX: nx, toY: ny, eaten: [] });
-                                    }
-                                    
-                                    const jx = nx + dx, jy = ny + dy;
-                                    if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8 && 
-                                        jx >= 0 && jx < 8 && jy >= 0 && jy < 8 &&
-                                        board[ny][nx] && board[ny][nx].color === oppColor && !board[jy][jx]) {
-                                        moves.push({ fromX: x, fromY: y, toX: jx, toY: jy, eaten: [{ x: nx, y: ny }] });
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                return moves;
-            }
-            
-            function evaluateBoardAI(board, machineColor) {
-                let score = 0;
-                for (let y = 0; y < 8; y++) {
-                    for (let x = 0; x < 8; x++) {
-                        const p = board[y][x];
-                        if (p) {
-                            const val = p.isQueen ? 3 : 1;
-                            score += p.color === machineColor ? val : -val;
-                        }
-                    }
-                }
-                return score;
-            }
-            
-            function applyMoveAI(board, move) {
-                const newBoard = board.map(row => row.map(c => c ? { ...c } : null));
-                const piece = newBoard[move.fromY][move.fromX];
-                newBoard[move.fromY][move.fromX] = null;
-                for (const e of move.eaten) newBoard[e.y][e.x] = null;
-                const promoted = (piece.color === 'white' && move.toY === 0) || (piece.color === 'black' && move.toY === 7);
-                newBoard[move.toY][move.toX] = { color: piece.color, isQueen: piece.isQueen || promoted };
-                return newBoard;
-            }
-            
-            function minimaxAI(board, depth, isMax, moveColor, machineColor) {
-                if (depth === 0) return evaluateBoardAI(board, machineColor);
-                const moves = getAllMovesAI(board, moveColor);
-                if (moves.length === 0) return evaluateBoardAI(board, machineColor);
-                const nextColor = moveColor === 'white' ? 'black' : 'white';
-                
-                if (isMax) {
-                    let maxVal = -Infinity;
-                    for (const move of moves) {
-                        const val = minimaxAI(applyMoveAI(board, move), depth - 1, false, nextColor, machineColor);
-                        maxVal = Math.max(maxVal, val);
-                    }
-                    return maxVal;
-                } else {
-                    let minVal = Infinity;
-                    for (const move of moves) {
-                        const val = minimaxAI(applyMoveAI(board, move), depth - 1, true, nextColor, machineColor);
-                        minVal = Math.min(minVal, val);
-                    }
-                    return minVal;
-                }
-            }
-            
-            function getBestMoveAI(board, color, depth) {
-                const moves = getAllMovesAI(board, color);
-                if (moves.length === 0) return null;
-                let bestMove = null;
-                let bestVal = -Infinity;
-                for (const move of moves) {
-                    const val = minimaxAI(applyMoveAI(board, move), depth - 1, false, color === 'white' ? 'black' : 'white', color);
-                    if (val > bestVal) {
-                        bestVal = val;
-                        bestMove = move;
-                    }
-                }
-                return bestMove;
-            }
-            
-            function makeAIMove() {
-                if (!gameActive || whiteTurn) return;
-                const board = getLogicalBoard();
-                const depths = { easy: 2, medium: 4, hard: 6 };
-                const best = getBestMoveAI(board, 'black', depths[currentDifficulty]);
-                if (best) {
-                    const srcSq = getSquare(best.fromX, best.fromY);
-                    if (srcSq && srcSq.firstChild) {
-                        const targetSq = getSquare(best.toX, best.toY);
-                        executeMove(srcSq.firstChild, { toSquare: targetSq, eaten: best.eaten.map(e => getSquare(e.x, e.y)) });
-                    }
-                }
-            }
-            
-            function generateBoard() {
-                boardEl.innerHTML = '';
-                for (let row = 0; row < 8; row++) {
-                    const tr = document.createElement('tr');
-                    for (let col = 0; col < 8; col++) {
-                        const td = document.createElement('td');
-                        td.setAttribute('pos', `${col},${row}`);
-                        tr.appendChild(td);
-                    }
-                    boardEl.appendChild(tr);
-                }
-            }
-            
-            function placePieces(pieces) {
-                for (const p of pieces) {
-                    const el = document.createElement('div');
-                    el.setAttribute('id', 'peca');
-                    el.classList.add(p.color);
-                    const sq = getSquare(p.posX, p.posY);
-                    if (sq) sq.appendChild(el);
-                }
-            }
-            
-            function resetGame() {
-                boardEl.innerHTML = '';
-                generateBoard();
-                placePieces(INITIAL_PIECES);
-                selectedPiece = null;
-                clearHighlights();
-                whiteTurn = true;
-                gameActive = true;
-                winBanner.classList.add('hidden');
-                updateTurnIndicator();
-                boardEl.onclick = handleBoardClick;
-            }
-            
-            function handleBoardClick(e) {
-                if (!gameActive) return;
-                let target = e.target;
-                const isPiece = target.id === 'peca' || target.id === 'dama';
-                
-                if (isPiece) {
-                    const isWhite = target.classList.contains('white');
-                    if ((whiteTurn && !isWhite) || (!whiteTurn && isWhite)) {
-                        return;
-                    }
-                    clearHighlights();
-                    selectedPiece = target;
-                    highlightedMoves = getMovesForPiece(target.parentNode, isWhite, target.id === 'dama');
-                    
-                    for (const move of highlightedMoves) {
-                        if (move.toSquare) move.toSquare.classList.add('verde');
-                    }
-                    return;
-                }
-                
-                if (selectedPiece && !isPiece) {
-                    const match = highlightedMoves.find(m => m.toSquare === target);
-                    if (match) executeMove(selectedPiece, match);
-                }
-            }
-            
-            function startGame() {
-                currentStake = parseInt(document.getElementById('stake-amount').value) || 1000;
-                
-                if (playerBalance < currentStake) {
-                    alert(`Salio la kutosha! Una ${formatTZS(playerBalance)} TZS lakini stake ni ${formatTZS(currentStake)} TZS`);
-                    return;
-                }
-                
-                currentConfig = {
-                    mode: currentMode,
-                    difficulty: currentDifficulty,
-                    scores: { white: 0, black: 0 },
-                    balance: playerBalance,
-                    stake: currentStake
-                };
-                
-                scoreWhite.textContent = '0';
-                scoreBlack.textContent = '0';
-                updateBalanceDisplay();
-                stakeAmountDisplay.textContent = formatTZS(currentStake);
-                
-                sessionStorage.setItem(STORAGE_KEY, JSON.stringify(currentConfig));
-                resetGame();
-                menuEl.classList.add('hidden');
-                gameContainer.classList.remove('hidden');
-                updateTurnIndicator();
-            }
-            
-            function backToMenu() {
-                menuEl.classList.remove('hidden');
-                gameContainer.classList.add('hidden');
-                gameActive = false;
-            }
-            
-            // Event listeners
-            document.querySelectorAll('.mode-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
-                    card.classList.add('active');
-                    currentMode = card.dataset.mode;
-                    document.getElementById('difficulty-group').classList.toggle('hidden', currentMode !== 'machine');
-                });
-            });
-            
-            document.querySelectorAll('.diff-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentDifficulty = btn.dataset.diff;
-                });
-            });
-            
-            startBtn.addEventListener('click', startGame);
-            backBtn.addEventListener('click', backToMenu);
-            generateBtn.addEventListener('click', () => { resetGame(); winBanner.classList.add('hidden'); updateTurnIndicator(); });
-            resignWhite.addEventListener('click', () => { if (gameActive) gameOver('black'); });
-            resignBlack.addEventListener('click', () => { if (gameActive) gameOver('white'); });
-            
-            const sidebar = document.getElementById('sidebar');
-            document.getElementById('sidebarToggle').addEventListener('click', () => sidebar.classList.toggle('open'));
-            document.getElementById('sidebarHandle').addEventListener('click', () => sidebar.classList.toggle('open'));
-            
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    tab.classList.add('active');
-                    document.getElementById(tab.dataset.tab).classList.add('active');
-                });
-            });
-            
-            // Initialize
-            generateBoard();
-            placePieces(INITIAL_PIECES);
-            boardEl.onclick = handleBoardClick;
-            updateTurnIndicator();
-            updateBalanceDisplay();
-        })();
-    </script>
+            pendingVerificationType = null;
+        }, 1500);
+    }
+
+    // Cancel modal
+    function cancelModal() {
+        modal.style.display = "none";
+        pendingVerificationType = null;
+        uploadedFile = null;
+    }
+
+    // Service functions
+    function hackWhatsApp() {
+        if (currentAccess === "none") { showToast("Access denied. Complete payment first.", true); return; }
+        const target = document.getElementById("waTarget").value.trim() || "+2557XXXXXX";
+        const resultDiv = document.getElementById("waResult");
+        if (currentAccess === "limited") {
+            resultDiv.innerHTML = `📱 [WHATSAPP EXPLOIT - LIMITED] Target: ${target}<br>🔓 Decrypted message: "Meeting at 7pm. Code: 8842X"<br><span style="font-size:0.7rem;">Upgrade to Full (20k) for full history + media.</span>`;
+        } else {
+            resultDiv.innerHTML = `💬 [WHATSAPP FULL EXPLOIT] ${target}<br>✔ Full conversation extracted: Last 30 days messages, media files (3 images, 1 video), call logs. OTP codes: 2290, 7712. Session token cloned.`;
+        }
+    }
+
+    function hackSMS() {
+        if (currentAccess === "none") { showToast("Access denied.", true); return; }
+        const target = document.getElementById("smsTarget").value.trim() || "+255XXX";
+        const resultDiv = document.getElementById("smsResult");
+        if (currentAccess === "limited") {
+            resultDiv.innerHTML = `📨 [SMS CAPTURE - LIMITED] ${target}<br>🔓 Last SMS: "Your OTP is 440291. Valid for 5 minutes."<br>Upgrade Full for live stream.`;
+        } else {
+            resultDiv.innerHTML = `📡 [SMS INTERCEPTION - FULL] ${target}<br>✔ Real-time capture: Bank alert Tsh 125,000 | M-Pesa: "Received 50,000 from Mama" | OTP: 992301, 447182. Full forwarding active.`;
+        }
+    }
+
+    function hackSocial() {
+        if (currentAccess === "none") { showToast("Access denied.", true); return; }
+        const username = document.getElementById("socialTarget").value.trim() || "user_handle";
+        const resultDiv = document.getElementById("socialResult");
+        if (currentAccess === "limited") {
+            resultDiv.innerHTML = `🌐 [SOCIAL HACK - LIMITED] @${username}<br>🔓 Partial data: email ${username}@mail.com, hash: 5f4dcc3b5aa... Upgrade Full for full takeover.`;
+        } else {
+            resultDiv.innerHTML = `🎭 [SOCIAL MEDIA FULL TAKEOVER] @${username}<br>✅ Session cookie extracted. Password: ${username}@2025! DM history: 142 messages. 2FA bypassed. Full access granted.`;
+        }
+    }
+
+    function boostSocial() {
+        if (currentAccess === "none") { showToast("Access denied.", true); return; }
+        const profile = document.getElementById("boostTarget").value.trim() || "user_profile";
+        const resultDiv = document.getElementById("boostResult");
+        if (currentAccess === "limited") {
+            resultDiv.innerHTML = `🚀 [LIMITED BOOST] @${profile}<br>➕ +52 new followers, +98 likes, +12 comments. Upgrade to Full (20k) for unlimited viral boost.`;
+        } else {
+            resultDiv.innerHTML = `⚡ [FULL VIP VIRAL BOOST] ${profile}<br>🔥 +3,847 followers, +9,221 likes, +456 comments 🚀 Trending activated. Engagement rate +340% (simulated).`;
+        }
+    }
+
+    // Event Listeners
+    document.getElementById("payLimitedBtn").addEventListener("click", () => { dialAirtel(); showToast("Send 10,000 TZS to +255581700060, then click Verify & upload screenshot", false); });
+    document.getElementById("payFullBtn").addEventListener("click", () => { dialAirtel(); showToast("Send 20,000 TZS to +255581700060, then click Verify & upload screenshot", false); });
+    document.getElementById("verifyLimitedBtn").addEventListener("click", () => openVerificationModal("limited"));
+    document.getElementById("verifyFullBtn").addEventListener("click", () => openVerificationModal("full"));
+    document.getElementById("modalConfirmBtn").addEventListener("click", confirmSubmission);
+    document.getElementById("modalCancelBtn").addEventListener("click", cancelModal);
+    document.getElementById("waHackBtn").addEventListener("click", hackWhatsApp);
+    document.getElementById("smsHackBtn").addEventListener("click", hackSMS);
+    document.getElementById("socialHackBtn").addEventListener("click", hackSocial);
+    document.getElementById("boostBtn").addEventListener("click", boostSocial);
+
+    window.addEventListener("click", (e) => { if (e.target === modal) cancelModal(); });
+
+    updateUI();
+</script>
 </body>
 </html>
